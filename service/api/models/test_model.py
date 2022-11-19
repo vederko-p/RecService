@@ -9,5 +9,5 @@ class TestModel(_BaseModel):
     def __init__(self) -> None:
         super().__init__(self.model_name)
 
-    def predict(self) -> _List[int]:
-        return list(range(10))
+    def predict(self, k:int) -> _List[int]:
+        return list(range(k))

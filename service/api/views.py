@@ -45,8 +45,8 @@ async def get_reco(
     else:
         raise ModelNotFoundError(
             status_code=404, detail=f'Model {model_name} not found')
-
-    reco = model.predict()
+    
+    reco = model.predict(request.app.state.k_recs)
     return RecoResponse(user_id=user_id, items=reco)
 
 
