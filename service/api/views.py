@@ -40,12 +40,13 @@ async def get_reco(
     if user_id > 10**9:
         raise UserNotFoundError(error_message=f"User {user_id} not found")
 
-    model = models_base.get_model(model_name)
-    if model is None:
-        raise ModelNotFoundError(404, detail=f'Model {model_name} not found')
+    if models_base.check_model(model_name):
+        model = models_base.init_model(model_name)
+    else:
+        raise ModelNotFoundError(
+            status_code=404, detail=f'Model {model_name} not found')
 
-    k_recs = request.app.state.k_recs
-    reco = list(range(k_recs))
+    reco = model.predict()
     return RecoResponse(user_id=user_id, items=reco)
 
 
