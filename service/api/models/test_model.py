@@ -1,4 +1,5 @@
 
+from typing import List as _List
 from service.api.models.base_model import BaseModel as _BaseModel
 
 
@@ -8,5 +9,5 @@ class TestModel(_BaseModel):
     def __init__(self) -> None:
         super().__init__(self.model_name)
 
-    def predict(self):
-        pass
+    def predict(self) -> _List[int]:
+        return list(range(10))
