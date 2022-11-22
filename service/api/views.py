@@ -1,6 +1,7 @@
-from typing import List
+from typing import List, Union
 
-from fastapi import APIRouter, FastAPI, Request
+from fastapi import APIRouter, FastAPI, Request, Depends
+from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 
 from service.api.exceptions import UserNotFoundError, ModelNotFoundError
@@ -45,6 +46,8 @@ async def get_reco(
     else:
         raise ModelNotFoundError(
             status_code=404, detail=f'Model {model_name} not found')
+            # TODO: Use status.HTTP_404_NOT_FOUND instead of 404
+            #       (from fastapi import status)
     
     reco = model.predict(request.app.state.k_recs)
     return RecoResponse(user_id=user_id, items=reco)
