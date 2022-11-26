@@ -20,13 +20,8 @@ class BotRequest(BaseModel):
     k_recs: int
 
 
-async def check_token(token: str):
-    if not pwd_context.verify(token, AVAILABLE_HASH):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate token",
-            headers={"WWW-Authenticate": "Bearer"},
-    )
+def check_token(token: str):
+    return pwd_context.verify(token, AVAILABLE_HASH)
     
 
 async def get_k_itmes(request: Request) -> int:
@@ -39,7 +34,13 @@ async def get_bot_request(
     k_items: int = Depends(get_k_itmes),
     token: str = Depends(oauth2_scheme)
 ) -> BotRequest:
-    await check_token(token)
+    verifyed = check_token(token)
+    if not verifyed:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate token",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
     bot_request = BotRequest(
             model_name=model_name, user_id=user_id, k_recs=k_items)
     return bot_request
