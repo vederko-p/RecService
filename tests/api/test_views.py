@@ -65,7 +65,7 @@ def test_get_reco_for_unknown_model(
     with client:
         headers = {"Authorization": f"Bearer {GOOD_TOKEN}"}
         response = client.get(path, headers=headers)
-    assert response.status_code == 404
+    assert response.status_code == HTTPStatus.NOT_FOUND
 
 
 var_expect = [
