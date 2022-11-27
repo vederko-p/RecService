@@ -11,6 +11,12 @@ from service.api.models.models_base import models_base
 from service.api.secure_token import BotRequest, get_bot_request
 
 
+resonses = {
+        404: {'description': 'Model or user not found.'},
+        401: {'description': 'Not authenticated. Wrong token.'}
+        }
+
+
 class RecoResponse(BaseModel):
     user_id: int
     items: List[int]
@@ -31,6 +37,7 @@ async def health() -> str:
     path="/reco/{model_name}/{user_id}",
     tags=["Recommendations"],
     response_model=RecoResponse,
+    responses=resonses
 )
 async def get_reco(
     bot_request: BotRequest = Depends(get_bot_request)
