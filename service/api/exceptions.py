@@ -1,7 +1,7 @@
 import typing as tp
 from http import HTTPStatus
-from fastapi import HTTPException
 
+from fastapi import HTTPException
 
 
 class AppException(Exception):

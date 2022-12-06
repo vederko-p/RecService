@@ -1,11 +1,9 @@
 from typing import List
 
-from fastapi import Request, Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
-
-from pydantic import BaseModel
 from passlib.context import CryptContext
-
+from pydantic import BaseModel
 
 AVAILABLE_HASH = '$2b$12$uee7sjovrt.Pwxu1HR487ek7YzZjFh5XOk1fYau5CirLNP3gOWhI.'
 
@@ -20,22 +18,22 @@ class BotRequest(BaseModel):
     k_recs: int
 
 
-def check_token(token: str):
+def check_token(token: str) -> bool:
     return pwd_context.verify(token, AVAILABLE_HASH)
     
 
-async def get_k_itmes(request: Request) -> int:
+async def get_k_items(request: Request) -> int:
     return request.app.state.k_recs
 
     
 async def get_bot_request(
     model_name: str,
     user_id: int,
-    k_items: int = Depends(get_k_itmes),
+    k_items: int = Depends(get_k_items),
     token: str = Depends(oauth2_scheme)
 ) -> BotRequest:
-    verifyed = check_token(token)
-    if not verifyed:
+    verified = check_token(token)
+    if not verified:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate token",
