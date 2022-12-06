@@ -80,8 +80,6 @@ def test_tokens(
 ) -> None:
     user_id = 0
     path = GET_RECO_PATH.format(model_name="test_model", user_id=user_id)
-    print(f'var: {var}')
-    print(f'expectation: {expectation}')
     with client:
         headers = {"Authorization": f"Bearer {var}"}
         response = client.get(path, headers=headers)
