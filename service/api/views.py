@@ -1,10 +1,20 @@
-from typing import List
+from typing import List, Union
 
-from fastapi import APIRouter, FastAPI, Request
+from fastapi import APIRouter, FastAPI, Request, Depends, status
 from pydantic import BaseModel
 
-from service.api.exceptions import UserNotFoundError
+from service.api.exceptions import UserNotFoundError, ModelNotFoundError
 from service.log import app_logger
+
+from service.api.models.models_base import models_base
+
+from service.api.secure_token import BotRequest, get_bot_request
+
+
+resonses = {
+        404: {'description': 'Model or user not found.'},
+        401: {'description': 'Not authenticated. Wrong token.'}
+        }
 
 
 class RecoResponse(BaseModel):
@@ -27,22 +37,28 @@ async def health() -> str:
     path="/reco/{model_name}/{user_id}",
     tags=["Recommendations"],
     response_model=RecoResponse,
+    responses=resonses
 )
 async def get_reco(
-    request: Request,
-    model_name: str,
-    user_id: int,
+    bot_request: BotRequest = Depends(get_bot_request)
 ) -> RecoResponse:
-    app_logger.info(f"Request for model: {model_name}, user_id: {user_id}")
+    app_logger.info(
+        f"Request for model: {bot_request.model_name}, user_id: {bot_request.user_id}"
+    )
+    
+    if bot_request.user_id > 10**9:
+        raise UserNotFoundError(
+                error_message=f"User {bot_request.user_id} not found")
 
-    # Write your code here
-
-    if user_id > 10**9:
-        raise UserNotFoundError(error_message=f"User {user_id} not found")
-
-    k_recs = request.app.state.k_recs
-    reco = list(range(k_recs))
-    return RecoResponse(user_id=user_id, items=reco)
+    if models_base.check_model(bot_request.model_name):
+        model = models_base.init_model(bot_request.model_name)
+    else:
+        raise ModelNotFoundError(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f'Model {bot_request.model_name} not found')
+    
+    reco = model.predict(bot_request.k_recs)
+    return RecoResponse(user_id=bot_request.user_id, items=reco)
 
 
 def add_views(app: FastAPI) -> None:

@@ -1,5 +1,7 @@
 import typing as tp
 from http import HTTPStatus
+from fastapi import HTTPException
+
 
 
 class AppException(Exception):
@@ -26,3 +28,13 @@ class UserNotFoundError(AppException):
         error_loc: tp.Optional[tp.Sequence[str]] = None,
     ):
         super().__init__(status_code, error_key, error_message, error_loc)
+
+
+class ModelNotFoundError(HTTPException):
+    def __init__(
+        self,
+        status_code: int,
+        detail: str,
+        headers: tp.Optional[tp.Dict[str, tp.Any]] = None,
+    ) -> None:
+        super().__init__(status_code, detail, headers)
