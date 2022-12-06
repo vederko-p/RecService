@@ -57,7 +57,7 @@ async def get_reco(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f'Model {bot_request.model_name} not found')
     
-    reco = model.predict(bot_request.k_recs)
+    reco = model.predict(bot_request.user_id, bot_request.k_recs)
     return RecoResponse(user_id=bot_request.user_id, items=reco)
 
 
