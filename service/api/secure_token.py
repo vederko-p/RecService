@@ -20,7 +20,7 @@ class BotRequest(BaseModel):
     k_recs: int
 
 
-def check_token(token: str):
+def check_token(token: str) -> bool:
     return pwd_context.verify(token, AVAILABLE_HASH)
     
 
