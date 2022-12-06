@@ -2,6 +2,7 @@
 from typing import List
 
 from service.api.models.base_model import BaseModel
+from service.log import app_logger
 
 
 class TestModel(BaseModel):
@@ -12,3 +13,7 @@ class TestModel(BaseModel):
 
     def predict(self, user_id: int, k:int) -> List[int]:
         return list(range(k))
+
+
+app_logger.info(f"Test Model initialization...")
+test_model = TestModel()
