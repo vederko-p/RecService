@@ -1,5 +1,6 @@
 
 from typing import List as _List
+
 from service.api.models.base_model import BaseModel as _BaseModel
 
 

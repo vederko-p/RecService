@@ -1,15 +1,12 @@
 from typing import List, Union
 
-from fastapi import APIRouter, FastAPI, Request, Depends, status
+from fastapi import APIRouter, Depends, FastAPI, Request, status
 from pydantic import BaseModel
 
-from service.api.exceptions import UserNotFoundError, ModelNotFoundError
-from service.log import app_logger
-
+from service.api.exceptions import ModelNotFoundError, UserNotFoundError
 from service.api.models.models_base import models_base
-
 from service.api.secure_token import BotRequest, get_bot_request
-
+from service.log import app_logger
 
 responses = {
         404: {'description': 'Model or user not found.'},

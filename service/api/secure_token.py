@@ -1,11 +1,9 @@
 from typing import List
 
-from fastapi import Request, Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
-
-from pydantic import BaseModel
 from passlib.context import CryptContext
-
+from pydantic import BaseModel
 
 AVAILABLE_HASH = '$2b$12$uee7sjovrt.Pwxu1HR487ek7YzZjFh5XOk1fYau5CirLNP3gOWhI.'
 
