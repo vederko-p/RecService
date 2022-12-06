@@ -7,6 +7,5 @@ class BaseModel(ABC):
         self.model_name = model_name
     
     @abstractmethod
-    def predict(self):
+    def predict(self, user_id: int, k: int):
         pass
-    
