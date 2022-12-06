@@ -26,6 +26,7 @@ def test_health(
     assert response.status_code == HTTPStatus.OK
 
 
+
 def test_get_reco_success(
     client: TestClient,
     service_config: ServiceConfig,
