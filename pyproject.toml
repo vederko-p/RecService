@@ -24,6 +24,8 @@ passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 httpx = "^0.23.1"
 pandas = "^1.5.2"
 dill = "^0.3.6"
+scipy = "^1.9.3"
+implicit = "^0.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
