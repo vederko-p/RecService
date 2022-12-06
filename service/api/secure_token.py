@@ -34,8 +34,8 @@ async def get_bot_request(
     k_items: int = Depends(get_k_itmes),
     token: str = Depends(oauth2_scheme)
 ) -> BotRequest:
-    verifyed = check_token(token)
-    if not verifyed:
+    verified = check_token(token)
+    if not verified:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate token",
