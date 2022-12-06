@@ -24,14 +24,14 @@ def check_token(token: str):
     return pwd_context.verify(token, AVAILABLE_HASH)
     
 
-async def get_k_itmes(request: Request) -> int:
+async def get_k_items(request: Request) -> int:
     return request.app.state.k_recs
 
     
 async def get_bot_request(
     model_name: str,
     user_id: int,
-    k_items: int = Depends(get_k_itmes),
+    k_items: int = Depends(get_k_items),
     token: str = Depends(oauth2_scheme)
 ) -> BotRequest:
     verified = check_token(token)
