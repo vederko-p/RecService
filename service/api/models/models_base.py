@@ -15,9 +15,7 @@ class ModelsBase:
 
 
     def init_model(self, model_name: str) -> BaseModel:
-        model_link = self.models.get(model_name)
-        model = model_link()
-        return model
+        return self.models.get(model_name)
 
 
 AVAILABLE_MODELS = [
