@@ -11,11 +11,11 @@ GET_RECO_PATH = "/reco/{model_name}/{user_id}"
 
 GOOD_TOKEN = os.getenv("GOOD_API_TOKEN")
 if GOOD_TOKEN is None:
-    raise Exception("GOOD_TOKEN not in env variables.")
+    raise Exception("GOOD_API_TOKEN not in env variables.")
 
 BAD_TOKEN = os.getenv("BAD_API_TOKEN")
 if BAD_TOKEN is None:
-    raise Exception("BAD_TOKEN not in env variables.")
+    raise Exception("BAD_API_TOKEN not in env variables.")
 
 
 def test_health(
