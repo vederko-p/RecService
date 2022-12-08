@@ -1,10 +1,21 @@
+import os
 from http import HTTPStatus
 
+import pytest
 from starlette.testclient import TestClient
 
 from service.settings import ServiceConfig
 
 GET_RECO_PATH = "/reco/{model_name}/{user_id}"
+
+
+GOOD_TOKEN = os.getenv("GOOD_API_TOKEN")
+if GOOD_TOKEN is None:
+    raise Exception("GOOD_API_TOKEN not in env variables.")
+
+BAD_TOKEN = os.getenv("BAD_API_TOKEN")
+if BAD_TOKEN is None:
+    raise Exception("BAD_API_TOKEN not in env variables.")
 
 
 def test_health(
@@ -20,9 +31,10 @@ def test_get_reco_success(
     service_config: ServiceConfig,
 ) -> None:
     user_id = 123
-    path = GET_RECO_PATH.format(model_name="some_model", user_id=user_id)
+    path = GET_RECO_PATH.format(model_name="test_model", user_id=user_id)
     with client:
-        response = client.get(path)
+        headers = {"Authorization": f"Bearer {GOOD_TOKEN}"}
+        response = client.get(path, headers=headers)
     assert response.status_code == HTTPStatus.OK
     response_json = response.json()
     assert response_json["user_id"] == user_id
@@ -34,8 +46,36 @@ def test_get_reco_for_unknown_user(
     client: TestClient,
 ) -> None:
     user_id = 10**10
-    path = GET_RECO_PATH.format(model_name="some_model", user_id=user_id)
+    path = GET_RECO_PATH.format(model_name="test_model", user_id=user_id)
     with client:
-        response = client.get(path)
+        headers = {"Authorization": f"Bearer {GOOD_TOKEN}"}
+        response = client.get(path, headers=headers)
     assert response.status_code == HTTPStatus.NOT_FOUND
     assert response.json()["errors"][0]["error_key"] == "user_not_found"
+
+
+def test_get_reco_for_unknown_model(
+    client: TestClient,
+) -> None:
+    user_id = 0
+    path = GET_RECO_PATH.format(model_name="some_model", user_id=user_id)
+    with client:
+        headers = {"Authorization": f"Bearer {GOOD_TOKEN}"}
+        response = client.get(path, headers=headers)
+    assert response.status_code == HTTPStatus.NOT_FOUND
+
+
+var_expect = [
+    (GOOD_TOKEN, HTTPStatus.OK),
+    (BAD_TOKEN, HTTPStatus.UNAUTHORIZED),
+]
+
+
+@pytest.mark.parametrize("var, expectation", var_expect)
+def test_tokens(client: TestClient, var: str, expectation: HTTPStatus) -> None:
+    user_id = 0
+    path = GET_RECO_PATH.format(model_name="test_model", user_id=user_id)
+    with client:
+        headers = {"Authorization": f"Bearer {var}"}
+        response = client.get(path, headers=headers)
+    assert response.status_code == expectation
