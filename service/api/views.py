@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List
 
 from fastapi import APIRouter, Depends, FastAPI, status
 from pydantic import BaseModel
