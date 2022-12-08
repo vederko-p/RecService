@@ -39,14 +39,14 @@ async def health() -> str:
 async def get_reco(
     bot_request: BotRequest = Depends(get_bot_request),
 ) -> RecoResponse:
-    app_logger.info(
-        f"Request for model: {bot_request.model_name}, user_id: {bot_request.user_id}"
+    msg = (
+        f"Request for model: {bot_request.model_name}, "
+        + f'error_message=f"User {bot_request.user_id} not found'
     )
+    app_logger.info(msg)
 
     if bot_request.user_id > 10**9:
-        raise UserNotFoundError(
-            error_message=f"User {bot_request.user_id} not found"
-        )
+        raise UserNotFoundError()
 
     if models_base.check_model(bot_request.model_name):
         model = models_base.init_model(bot_request.model_name)
