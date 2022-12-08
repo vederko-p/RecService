@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 import dill
 
@@ -113,19 +113,19 @@ class KNNModelConfig:
         users_segment_map_path: str,
         sub_estimators_path: str,
         items_pop_ordered_path: str,
-        warmup_users_path: str = None,
+        warmup_users_path: Union[str, None],
     ):
         self.users_segment_map_path = users_segment_map_path
         self.sub_estimators_path = sub_estimators_path
         self.items_pop_ordered_path = items_pop_ordered_path
         self.warmup_users_path = warmup_users_path
 
-        self.users_segment_map = (None,)
-        self.sub_estimators = (None,)
+        self.users_segment_map = None
+        self.sub_estimators = None
         self.items_pop_ordered = None
         self.warmup_users = None
 
-    def parse(self):
+    def parse(self) -> None:
         self.users_segment_map = read_dill(self.users_segment_map_path)
         self.sub_estimators = read_dill(self.sub_estimators_path)
         self.items_pop_ordered = read_dill(self.items_pop_ordered_path)
