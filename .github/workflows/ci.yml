@@ -14,6 +14,5 @@ jobs:
           python-version: "3.8"
       - run: pip install poetry
       - run: make setup
-      - run: sudo apt install isort
       - run: make lint
       - run: make test
