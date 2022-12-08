@@ -14,5 +14,5 @@ class TestModel(BaseModel):
         return list(range(k))
 
 
-app_logger.info(f"Test Model initialization...")
+app_logger.info("Test Model initialization...")
 test_model = TestModel()
