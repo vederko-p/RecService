@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, FastAPI, Request, status
+from fastapi import APIRouter, Depends, FastAPI, File, Request, status
 from pydantic import BaseModel
 
 from service.api.exceptions import ModelNotFoundError, UserNotFoundError

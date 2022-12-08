@@ -20,7 +20,7 @@ repos:
     -   id: autoflake
         args:
         - --remove-unused-variables
-        - --remove-all-unused-imports
+#         - --remove-all-unused-imports
         - --imports=fastapi
 -   repo: https://github.com/PyCQA/isort
     rev: 5.10.1
