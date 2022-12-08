@@ -1,7 +1,6 @@
 from typing import List, Tuple
 
 import dill
-import pandas as pd
 
 from service.api.models.base_model import BaseModel
 from service.log import app_logger
@@ -161,5 +160,5 @@ knn_model_config = KNNModelConfig(
 )
 
 knn_model_initializer = KNNModelInitializer(knn_model_config)
-app_logger.info(f"kNN Model initialization...")
+app_logger.info("kNN Model initialization...")
 knn_model = knn_model_initializer.init_model()
