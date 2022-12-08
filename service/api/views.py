@@ -42,7 +42,7 @@ async def get_reco(
     app_logger.info(
         f"Request for model: {bot_request.model_name}, user_id: {bot_request.user_id}"
     )
-    
+
     if bot_request.user_id > 10**9:
         raise UserNotFoundError(
                 error_message=f"User {bot_request.user_id} not found")
@@ -53,7 +53,7 @@ async def get_reco(
         raise ModelNotFoundError(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f'Model {bot_request.model_name} not found')
-    
+
     reco = model.predict(bot_request.user_id, bot_request.k_recs)
     return RecoResponse(user_id=bot_request.user_id, items=reco)
 

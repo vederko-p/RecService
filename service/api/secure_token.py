@@ -20,12 +20,12 @@ class BotRequest(BaseModel):
 
 def check_token(token: str) -> bool:
     return pwd_context.verify(token, AVAILABLE_HASH)
-    
+
 
 async def get_k_items(request: Request) -> int:
     return request.app.state.k_recs
 
-    
+
 async def get_bot_request(
     model_name: str,
     user_id: int,
