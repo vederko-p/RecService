@@ -11,10 +11,12 @@ repos:
     -   id: debug-statements
 -   repo: https://github.com/psf/black
     rev: 22.6.0
+    args: [--line-length=79]
     hooks:
     -   id: black
 -   repo: https://github.com/PyCQA/autoflake
     rev: v2.0.0
+    args: [--max-line-length=79]
     hooks:
     -   id: autoflake
 -   repo: https://github.com/PyCQA/isort
