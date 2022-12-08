@@ -13,8 +13,8 @@ jobs:
         with:
           python-version: "3.8"
         env:
-          GOOD_TOKEN: ${{ secrets.GOOD_API_TOKEN }}
-          BAD_TOKEN: ${{ secrets.BAD_API_TOKEN }}
+          GOOD_API_TOKEN: ${{ secrets.GOOD_API_TOKEN }}
+          BAD_API_TOKEN: ${{ secrets.BAD_API_TOKEN }}
       - run: pip install poetry
       - run: make setup
       - run: make lint
