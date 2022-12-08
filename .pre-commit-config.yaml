@@ -9,14 +9,14 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
     repo: https://github.com/psf/black
-    rev: latest
+    rev: v22.10.0
     hooks:
     -   id: black
-    repo: https://github.com/PyCQA/isort 
-    rev: latest
-    hooks:
-    -   id: isort
     repo: https://github.com/PyCQA/autoflake 
     rev: v2.0.0
     hooks:
     -   id: autoflake
+    repo: https://github.com/PyCQA/isort
+    rev: 5.10.1
+    hooks:
+    -   id: isort
