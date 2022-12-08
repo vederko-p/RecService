@@ -28,7 +28,7 @@ class KNNModel(BaseModel):
             return self._predict_by_model(user_id, user_segment, k)
 
     def _predict_popular(self, k: int) -> List[int]:
-        return self.pop_items[:k].tolist()
+        return self.pop_items[:k]
 
     def _get_similar_users(
         self,
