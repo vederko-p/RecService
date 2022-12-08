@@ -1,4 +1,3 @@
-from typing import List
 
 from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordBearer
