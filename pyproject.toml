@@ -26,6 +26,7 @@ pandas = "^1.5.2"
 dill = "^0.3.6"
 scipy = "^1.9.3"
 implicit = "^0.6.1"
+pre-commit = "^2.20.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
@@ -39,3 +40,6 @@ pylint = "~2.8.3"
 [build-system]
 requires = ["poetry>=1.0.5"]
 build-backend = "poetry.masonry.api"
+
+[tool.black]
+line-length = 79

@@ -9,13 +9,13 @@ from service.settings import ServiceConfig
 GET_RECO_PATH = "/reco/{model_name}/{user_id}"
 
 
-GOOD_TOKEN = os.getenv('GOOD_API_TOKEN')
+GOOD_TOKEN = os.getenv("GOOD_API_TOKEN")
 if GOOD_TOKEN is None:
-    raise Exception('GOOD_TOKEN not in env variables.')
+    raise Exception("GOOD_API_TOKEN not in env variables.")
 
-BAD_TOKEN = os.getenv('BAD_API_TOKEN')
+BAD_TOKEN = os.getenv("BAD_API_TOKEN")
 if BAD_TOKEN is None:
-    raise Exception('BAD_TOKEN not in env variables.')
+    raise Exception("BAD_API_TOKEN not in env variables.")
 
 
 def test_health(
@@ -69,12 +69,10 @@ var_expect = [
     (GOOD_TOKEN, HTTPStatus.OK),
     (BAD_TOKEN, HTTPStatus.UNAUTHORIZED),
 ]
+
+
 @pytest.mark.parametrize("var, expectation", var_expect)
-def test_tokens(
-    client: TestClient,
-    var: str,
-    expectation: HTTPStatus
-) -> None:
+def test_tokens(client: TestClient, var: str, expectation: HTTPStatus) -> None:
     user_id = 0
     path = GET_RECO_PATH.format(model_name="test_model", user_id=user_id)
     with client:

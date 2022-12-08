@@ -66,6 +66,10 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+<<<<<<< HEAD
 
 # RecSys models
+=======
+# Models
+>>>>>>> develop
 service/api/models/files/
