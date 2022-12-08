@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 
 from fastapi import APIRouter, Depends, FastAPI, status
 from pydantic import BaseModel
@@ -8,7 +8,7 @@ from service.api.models.models_base import models_base
 from service.api.secure_token import BotRequest, get_bot_request
 from service.log import app_logger
 
-responses = {
+responses: Dict = {
     404: {"description": "Model or user not found."},
     401: {"description": "Not authenticated. Wrong token."},
 }
