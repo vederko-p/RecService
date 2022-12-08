@@ -140,7 +140,7 @@ class KNNModelInitializer:
     ):
         self.config = config
 
-    def init_model(self):
+    def init_model(self) -> KNNModel:
         self.config.parse()
         model = KNNModel(
             user_segment_map=self.config.users_segment_map,
