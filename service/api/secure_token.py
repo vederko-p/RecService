@@ -37,5 +37,7 @@ async def get_bot_request(
             detail="Could not validate token",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    bot_request = BotRequest(model_name=model_name, user_id=user_id, k_recs=k_items)
+    bot_request = BotRequest(
+        model_name=model_name, user_id=user_id, k_recs=k_items
+    )
     return bot_request
