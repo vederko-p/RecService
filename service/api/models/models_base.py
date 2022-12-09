@@ -1,4 +1,4 @@
-from typing import List as _List
+from typing import List
 
 from service.api.models.base_model import BaseModel
 from service.api.models.knn_model import knn_model
@@ -6,7 +6,7 @@ from service.api.models.test_model import test_model
 
 
 class ModelsBase:
-    def __init__(self, models: _List[BaseModel]):
+    def __init__(self, models: List[BaseModel]):
         self.models = {m.model_name: m for m in models}
 
     def check_model(self, model_name: str) -> bool:
