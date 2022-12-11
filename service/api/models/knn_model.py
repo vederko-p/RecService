@@ -1,4 +1,4 @@
-from typing import List, Tuple, Union
+from typing import Any, List, Tuple, Union
 
 import dill
 
@@ -96,7 +96,7 @@ class KNNModel(BaseModel):
             self.predict(user_id, k=self.warmup_k)
 
 
-def read_dill(filepath: str):
+def read_dill(filepath: str) -> Any:
     with open(filepath, "rb") as f:
         data = dill.load(f)
     return data
