@@ -39,20 +39,13 @@ class KNNModel(BaseModel):
         model = self.segment_model_map[user_segment]
         # find similar users:
         inner_user_id = model.users_mapping[user_id]
-        sim = list(
-            filter(
-                lambda x: x[1] < 1,
-                list(
-                    zip(
-                        *model.user_knn.similar_items(
-                            inner_user_id, N=model.N_users
-                        )
-                    )
-                )[
-                    1:
-                ],  # exclude same user
-            )
-        )
+        sim_items_rates = list(
+            zip(*model.user_knn.similar_items(inner_user_id, N=model.N_users))
+        )[
+            1:
+        ]  # exclude same user
+        # take rates lower than 1 and:
+        sim = list(filter(lambda x: x[1] < 1, sim_items_rates))
         return (
             [model.users_inv_mapping[user] for user, _ in sim],
             [user_s for _, user_s in sim],
