@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 
 class BaseModel(ABC):
@@ -6,5 +7,5 @@ class BaseModel(ABC):
         self.model_name = model_name
 
     @abstractmethod
-    def predict(self, user_id: int, k: int):
+    def predict(self, user_id: int, k: int) -> List[int]:
         pass

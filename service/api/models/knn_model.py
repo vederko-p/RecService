@@ -30,7 +30,7 @@ class KNNModel(BaseModel):
             return self._predict_by_model(user_id, user_segment, k)
 
     def _predict_popular(self, k: int) -> List[int]:
-        return self.pop_items[:k]
+        return list(self.pop_items)[:k]
 
     def _get_similar_users(
         self,
@@ -41,12 +41,12 @@ class KNNModel(BaseModel):
         model = self.segment_model_map[user_segment]
         # find similar users:
         inner_user_id = model.users_mapping[user_id]
-        sim_items_rates = list(
-            zip(*model.user_knn.similar_items(inner_user_id, N=model.N_users))
+        sim_items_rates = model.user_knn.similar_items(
+            inner_user_id, N=model.N_users
         )[
             1:
-        ]  # exclude same user
-        # take rates lower than 1 and:
+        ]  # exclude the same user
+        # take rates lower than 1:
         sim = list(filter(lambda x: x[1] < 1, sim_items_rates))
         return (
             [model.users_inv_mapping[user] for user, _ in sim],
