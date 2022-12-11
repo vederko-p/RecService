@@ -14,11 +14,13 @@ class KNNModel(BaseModel):
         user_segment_map: dict,
         segment_model_map: dict,
         pop_items: List[int],
+        warmup_k: int = None,
     ):
         super().__init__(self.model_name)
         self.user_segment_map = user_segment_map
         self.segment_model_map = segment_model_map
         self.pop_items = pop_items
+        self.warmup_k = 10 if warmup_k is None else warmup_k
 
     def predict(self, user_id: int, k: int) -> List[int]:
         user_segment = self.user_segment_map.get(user_id)
@@ -91,7 +93,7 @@ class KNNModel(BaseModel):
 
     def warmup(self, users_ids: List[int]) -> None:
         for user_id in users_ids:
-            self.predict(user_id, k=10)
+            self.predict(user_id, k=self.warmup_k)
 
 
 def read_dill(filepath: str):
