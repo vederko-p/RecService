@@ -5,7 +5,7 @@ from service.log import app_logger
 
 
 class TestModel(BaseModel):
-    model_name = "test_model"
+    model_name: str = "test_model"
 
     def __init__(self):
         super().__init__(self.model_name)
@@ -15,4 +15,4 @@ class TestModel(BaseModel):
 
 
 app_logger.info("Test Model initialization...")
-test_model: TestModel = TestModel()
+test_model = TestModel()
