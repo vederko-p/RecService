@@ -3,7 +3,7 @@ from typing import List
 
 
 class BaseModel(ABC):
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str) -> ABC:
         self.model_name = model_name
 
     @abstractmethod
