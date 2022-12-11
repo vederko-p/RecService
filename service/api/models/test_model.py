@@ -15,4 +15,4 @@ class TestModel(BaseModel):
 
 
 app_logger.info("Test Model initialization...")
-test_model = TestModel()
+test_model: TestModel = TestModel()
