@@ -115,23 +115,17 @@ class KNNModelConfig:
         self.items_pop_ordered_path = items_pop_ordered_path
         self.warmup_users_path = warmup_users_path
 
-        self.users_segment_map = None
-        self.sub_estimators = None
-        self.items_pop_ordered = None
-        self.warmup_users: Union[Dict, None] = None
+        self.users_segment_map: Dict[int, int] = None
+        self.sub_estimators: Dict[int, Any] = None
+        self.items_pop_ordered: List[int] = None
+        self.warmup_users: Union[List[int], None] = None
 
     def parse(self) -> None:
-        self.users_segment_map: Dict[int, int] = read_dill(
-            self.users_segment_map_path
-        )
-        self.sub_estimators: Dict[int, Any] = read_dill(
-            self.sub_estimators_path
-        )
-        self.items_pop_ordered: List[int] = read_dill(
-            self.items_pop_ordered_path
-        )
+        self.users_segment_map = read_dill(self.users_segment_map_path)
+        self.sub_estimators = read_dill(self.sub_estimators_path)
+        self.items_pop_ordered = read_dill(self.items_pop_ordered_path)
         if self.warmup_users_path is not None:
-            self.warmup_users: List[int] = read_dill(self.warmup_users_path)
+            self.warmup_users = read_dill(self.warmup_users_path)
 
 
 class KNNModelInitializer:
