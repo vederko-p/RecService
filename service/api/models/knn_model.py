@@ -11,8 +11,8 @@ class KNNModel(BaseModel):
 
     def __init__(
         self,
-        user_segment_map: dict,
-        segment_model_map: dict,
+        user_segment_map: Dict[int, int],
+        segment_model_map: Dict[int, Any],
         pop_items: List[int],
         warmup_k: int = None,
     ):
