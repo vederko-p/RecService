@@ -6,7 +6,7 @@ import numpy as np
 
 
 class HNSWModel:
-    model_name = "hnsw_model"
+    model_name = "hnsw_model_1"
 
     def __init__(
         self,
