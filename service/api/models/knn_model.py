@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Tuple, Union
 
 import dill
+import pandas as pd
 
 from service.api.models.base_model import BaseModel
 from service.log import app_logger
@@ -125,7 +126,9 @@ class KNNModelConfig:
         self.sub_estimators = read_dill(self.sub_estimators_path)
         self.items_pop_ordered = read_dill(self.items_pop_ordered_path)
         if self.warmup_users_path is not None:
-            self.warmup_users = read_dill(self.warmup_users_path)
+            self.warmup_users = pd.read_csv(self.warmup_users_path)[
+                "user_id"
+            ].tolist()
 
 
 class KNNModelInitializer:
@@ -143,15 +146,18 @@ class KNNModelInitializer:
             pop_items=self.config.items_pop_ordered,
         )
         if self.config.warmup_users is not None:
+            print("-" * 30)
+            print("warmup started...")
             model.warmup(self.config.warmup_users)
         return model
 
 
+# https://drive.google.com/file/d/1AVi5ztfkD0Ud0PZH0V8cm2KOZLpZYK8D/view?usp=sharing
 knn_model_config = KNNModelConfig(
     users_segment_map_path="service/api/models/files/users_segment_map.dill",
     sub_estimators_path="service/api/models/files/segment_model_map.dill",
     items_pop_ordered_path="service/api/models/files/items_pop_ordered.dill",
-    warmup_users_path=None,  # 'files/warmup_users.dill'
+    warmup_users_path=None,
 )
 
 knn_model_initializer = KNNModelInitializer(knn_model_config)
