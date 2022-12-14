@@ -67,4 +67,4 @@ venv.bak/
 .mypy_cache/
 
 # recsys models
-service/api/models/files/knn_model_files
+service/api/models/files/
