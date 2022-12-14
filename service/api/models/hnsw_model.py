@@ -6,6 +6,8 @@ import numpy as np
 
 
 class HNSWModel:
+    model_name = "hnsw_model"
+
     def __init__(
         self,
         index_time_params: tp.Dict[str, int],
