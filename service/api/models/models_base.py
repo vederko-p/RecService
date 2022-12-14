@@ -1,6 +1,7 @@
 from typing import List
 
 from service.api.models.base_model import BaseModel
+from service.api.models.hnsw_model import hnsw_model
 from service.api.models.knn_model import knn_model
 from service.api.models.test_model import test_model
 
@@ -16,6 +17,6 @@ class ModelsBase:
         return self.models.get(model_name)
 
 
-AVAILABLE_MODELS = [test_model, knn_model]
+AVAILABLE_MODELS = [test_model, knn_model, hnsw_model]
 
 models_base = ModelsBase(AVAILABLE_MODELS)

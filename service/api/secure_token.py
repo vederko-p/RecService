@@ -28,8 +28,9 @@ async def get_bot_request(
     model_name: str,
     user_id: int,
     k_items: int = Depends(get_k_items),
-    token: str = Depends(oauth2_scheme),
+    # token: str = Depends(oauth2_scheme),
 ) -> BotRequest:
+    """
     verified = check_token(token)
     if not verified:
         raise HTTPException(
@@ -37,6 +38,7 @@ async def get_bot_request(
             detail="Could not validate token",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    """
     bot_request = BotRequest(
         model_name=model_name, user_id=user_id, k_recs=k_items
     )
