@@ -22,7 +22,14 @@ python-multipart = "^0.0.5"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 httpx = "^0.23.1"
+pandas = "^1.5.2"
+dill = "^0.3.6"
+scipy = "^1.9.3"
+implicit = "^0.6.1"
 pre-commit = "^2.20.0"
+missingpy = "^0.2.0"
+matplotlib = "^3.6.2"
+scikit-learn = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
